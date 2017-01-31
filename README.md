@@ -4,7 +4,7 @@
 
 游戏里包含大量圆圈，玩家用键盘方向键控制主角，收集红色圆圈、躲开其他圆圈。
 
-[【开始游戏 >>】](https://benzleung.github.io/circle/)
+**[【开始游戏 >>】](https://benzleung.github.io/circle/)**
 
 
 # Circle War - A game for learning cocos2d-js
@@ -13,6 +13,6 @@ This is a small small small game that invented by myself. I make it for learning
 
 There are many circles in this game. Using arrow keys in keyboard to control the main circle, let it collect the red circles and don't touch the other circles.
 
-[[PLAY NOW! >>]](https://benzleung.github.io/circle/)
+**[[PLAY NOW! >>]](https://benzleung.github.io/circle/)**
 
 (Forgive my poor English.)
