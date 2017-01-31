@@ -9,7 +9,7 @@
 
 # Circle War - A game for learning cocos2d-js
 
-This is a small small small game that invented by myself. I make it for learning cocos2d-js.
+This is a small small small game that invented by myself. I made it for learning cocos2d-js.
 
 There are many circles in this game. Using arrow keys in keyboard to control the main circle, let it collect the red circles and don't touch the other circles.
 
