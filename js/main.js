@@ -351,7 +351,6 @@ window.onload = function(){
             });
             cc.view.setDesignResolutionSize(1920, 1080, cc.ResolutionPolicy.SHOW_ALL);
             cc.view.resizeWithBrowserSize(true);
-            cc.screen.requestFullScreen();
             cc.director.runScene(new MyScene());
         }, this);
     };

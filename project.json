@@ -3,5 +3,10 @@
     "frameRate"     : 60,
     "id"            : "gameCanvas",
     "renderMode"    : 1,
-    "jsList"        : []
+    "name": "app",
+    "project": "app",
+    "version": "1.0.0",
+    "devDependencies": {
+        "gulp": "^3.9.0"
+    }
 }
