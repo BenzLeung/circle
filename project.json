@@ -5,7 +5,7 @@
     "renderMode"    : 1,
     "name": "app",
     "project": "app",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "devDependencies": {
         "gulp": "^3.9.0"
     }
