@@ -10,6 +10,13 @@
 
 require(['cocos', 'scenes/mainScene'], function (cc, MainScene) {
 
+    cc.game.config = {
+        "debugMode"     : 1,
+        "frameRate"     : 60,
+        "id"            : "gameCanvas",
+        "renderMode"    : 1
+    };
+
     cc.game.onStart = function(){
         cc.LoaderScene.preload(['res/circle-red.png', 'res/circle-blue.png', 'res/me.png'], function () {
             cc.view.setDesignResolutionSize(1920, 1080, cc.ResolutionPolicy.SHOW_ALL);
