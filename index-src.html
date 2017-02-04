@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Circle</title>
-    <style>
-        html, body {
-            background: #003;
-            margin: 0;
-            padding: 0;
-        }
-        #gameCanvas {
-            border: 3px solid #ccc;
-        }
-    </style>
+    <!-- build:css dist/css/style.css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- /build -->
 </head>
 <body>
 <canvas id="gameCanvas" width="1920" height="1080"></canvas>
-<script type="text/javascript" src="lib/require.js" charset="UTF-8" data-main="js/config"></script>
+<!-- build:js dist/js/require.js -->
+<script type="text/javascript" src="lib/require.js" charset="UTF-8"></script>
+<!-- /build -->
+<!-- build:js dist/js/script.js -->
+<script type="text/javascript" src="js/config.js" charset="UTF-8"></script>
+<!-- /build -->
 </body>
 </html>
