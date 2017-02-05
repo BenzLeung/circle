@@ -6,6 +6,8 @@
 
 **[【开始游戏 >>】](https://benzleung.github.io/circle/)**
 
+[更新日志](https://github.com/BenzLeung/circle/wiki/Change-Log)
+
 
 # Circle War - A game for learning cocos2d-js
 
@@ -14,5 +16,7 @@ This is a small small small game that invented by myself. I made it for learning
 There are many circles in this game. Using arrow keys in keyboard to control the main circle, let it collect the red circles and don't touch the other circles.
 
 **[[PLAY NOW! >>]](https://benzleung.github.io/circle/)**
+
+[Change Log](https://github.com/BenzLeung/circle/wiki/Change-Log)
 
 (Forgive my poor English.)
