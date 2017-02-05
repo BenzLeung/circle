@@ -1,6 +1,6 @@
 /**
  * @file 用于学习cocos
- * @author liangweibin@baidu.com
+ * @author BenzLeung(https://github.com/BenzLeung)
  * @date 2016/12/20
  * Created by JetBrains PhpStorm.
  *

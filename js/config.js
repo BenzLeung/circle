@@ -1,6 +1,6 @@
 /**
  * @file RequireJS 的初始化配置
- * @author liangweibin@baidu.com
+ * @author BenzLeung(https://github.com/BenzLeung)
  * @date 2017/2/3
  * Created by JetBrains PhpStorm.
  *

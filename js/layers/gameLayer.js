@@ -1,6 +1,6 @@
 /**
  * @file 游戏进行中的层
- * @author liangweibin@baidu.com
+ * @author BenzLeung(https://github.com/BenzLeung)
  * @date 2017/2/3
  * @class GameLayer
  * Created by JetBrains PhpStorm.
@@ -14,9 +14,10 @@ define(
         'cocos',
         'sprites/circles/masterCircle',
         'sprites/circles/redCircle',
-        'sprites/circles/blueCircle'
+        'sprites/circles/blueCircle',
+        'i18n/i18n'
     ],
-    function (cc, MasterCircle, RedCircle, BlueCircle) {
+    function (cc, MasterCircle, RedCircle, BlueCircle, i18n) {
         return cc.Layer.extend({
             scoreLabel : null,
             myCircle   : null,
@@ -66,7 +67,7 @@ define(
 
                 var size = cc.director.getWinSize();
 
-                this.scoreLabel = new cc.LabelTTF("得分：0", "Arial Black", 40);
+                this.scoreLabel = new cc.LabelTTF(i18n('Score: ') + '0', i18n.defaultFont, 40);
                 var scoreColor = new cc.Color(0, 255, 0);
                 this.scoreLabel.setPosition(size.width / 2, size.height -100);
                 this.scoreLabel.setColor(scoreColor);
@@ -74,12 +75,12 @@ define(
 
                 this.myCircle = new MasterCircle();
                 this.addChild(this.myCircle, 5);
-                this.guideLabel = new cc.LabelTTF("用键盘方向键或者ASDW移动主角，收集红色圈圈，躲开蓝色圈圈。", "Microsoft Yahei", 30);
+                this.guideLabel = new cc.LabelTTF(i18n('Using arrow keys in keyboard to control the main circle, let it collect the red circles and don\'t touch the other circles.'), i18n.defaultFont, 30);
                 this.guideLabel.setPosition(size.width / 2, size.height / 2 - 100);
                 this.guideLabel.setColor(new cc.Color(255, 255, 255));
                 this.guideLabel.enableStroke(new cc.Color(10, 10, 10), 2);
                 this.addChild(this.guideLabel, 100);
-                this.readyLabel = new cc.LabelTTF("- 按Enter开始游戏 -", "Microsoft Yahei", 30);
+                this.readyLabel = new cc.LabelTTF(i18n('- Press ENTER to play -'), i18n.defaultFont, 30);
                 this.readyLabel.setPosition(size.width / 2, size.height / 2 - 140);
                 this.readyLabel.setColor(new cc.Color(128, 255, 128));
                 this.readyLabel.enableStroke(new cc.Color(10, 10, 10), 2);
@@ -109,19 +110,19 @@ define(
 
                 this.scheduleUpdate();
 
-                this.pauseLabel = new cc.LabelTTF("- PAUSE -", "Arial Black", 100);
+                this.pauseLabel = new cc.LabelTTF('- PAUSE -', 'Arial Black', 100);
                 this.pauseLabel.setPosition(size.width / 2, size.height / 2);
                 this.pauseLabel.setColor(new cc.Color(128, 255, 128));
                 this.pauseLabel.enableStroke(new cc.Color(10, 10, 10), 3);
                 this.addChild(this.pauseLabel, 100);
                 this.pauseLabel.runAction(cc.hide());
-                this.gameOverLabel = new cc.LabelTTF("Game Over", "Arial Black", 60);
+                this.gameOverLabel = new cc.LabelTTF('Game Over', 'Arial Black', 60);
                 this.gameOverLabel.setPosition(size.width / 2, size.height / 2 + 40);
                 this.gameOverLabel.setColor(new cc.Color(128, 255, 128));
                 this.gameOverLabel.enableStroke(new cc.Color(10, 10, 10), 3);
                 this.addChild(this.gameOverLabel, 100);
                 this.gameOverLabel.runAction(cc.hide());
-                this.finalScoreLabel = new cc.LabelTTF("最后得分：0", "Microsoft Yahei", 30);
+                this.finalScoreLabel = new cc.LabelTTF(i18n('Your score: ') + '0', i18n.defaultFont, 30);
                 this.finalScoreLabel.setPosition(size.width / 2, size.height / 2 - 30);
                 this.finalScoreLabel.setColor(new cc.Color(255, 255, 255));
                 this.finalScoreLabel.enableStroke(new cc.Color(10, 10, 10), 2);
@@ -151,7 +152,7 @@ define(
                 this.myCircle.setDisplayFrame(this.myCircle.normalFrame);
 
                 this.score = 0;
-                this.scoreLabel.setString("得分：0");
+                this.scoreLabel.setString(i18n('Score: ') + 0);
                 this.isOver = false;
             },
             pauseGame:function () {
@@ -177,8 +178,8 @@ define(
                 this.isPaused = false;
             },
             gameOver:function () {
-                this.finalScoreLabel.setString('最后得分：' + this.score);
-                this.readyLabel.setString('- 按Enter重新开始 -');
+                this.finalScoreLabel.setString(i18n('Your score: ') + this.score);
+                this.readyLabel.setString(i18n('- Press ENTER to replay -'));
                 this.gameOverLabel.runAction(cc.show());
                 this.finalScoreLabel.runAction(cc.show());
                 this.readyLabel.runAction(cc.show());
@@ -206,7 +207,7 @@ define(
                     if (this.checkCirclesHit(this.myCircle, this.redCircle[i])) {
                         this.redCircle[i].initPosition();
                         this.score ++;
-                        this.scoreLabel.setString("得分：" + this.score);
+                        this.scoreLabel.setString(i18n('Score: ') + this.score);
 
                         if (this.score % 2 === 0) {
                             tmp = new BlueCircle();

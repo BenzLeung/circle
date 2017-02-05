@@ -1,0 +1,1 @@
+define({defaultFont:"Arial",dictionary:{}});

@@ -1,6 +1,6 @@
 /**
  * @file 红色（得分）的圆
- * @author liangweibin@baidu.com
+ * @author BenzLeung(https://github.com/BenzLeung)
  * @date 2017/2/3
  * @class RedCircle
  * Created by JetBrains PhpStorm.

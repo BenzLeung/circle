@@ -1,6 +1,6 @@
 /**
  * @file 基本的圈
- * @author liangweibin@baidu.com
+ * @author BenzLeung(https://github.com/BenzLeung)
  * @date 2017/2/3
  * @class BaseCircle
  * Created by JetBrains PhpStorm.

@@ -1,6 +1,6 @@
 /**
  * @file 您所控制的主角圆
- * @author liangweibin@baidu.com
+ * @author BenzLeung(https://github.com/BenzLeung)
  * @date 2017/2/3
  * @class MasterCircle
  * Created by JetBrains PhpStorm.

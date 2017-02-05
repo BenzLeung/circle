@@ -1,6 +1,6 @@
 /**
  * @file Gulp File
- * @author liangweibin@baidu.com
+ * @author BenzLeung(https://github.com/BenzLeung)
  * @date 2017/2/4
  * Created by JetBrains PhpStorm.
  *
@@ -23,11 +23,11 @@ var procseeHtml = require('gulp-processhtml');
 var DIST_PATH = 'dist';
 
 gulp.task('clean', function () {
-    gulp.src('dist/*')
+    return gulp.src('dist/*')
         .pipe(clean());
 });
 
-gulp.task('images', function () {
+gulp.task('images', ['clean'], function () {
     gulp.src('res/*.png')
         .pipe(imageMin({
             plugins: [imageMinPngCrush()]
@@ -35,7 +35,7 @@ gulp.task('images', function () {
         .pipe(gulp.dest(DIST_PATH + '/images'));
 });
 
-gulp.task('js', function () {
+gulp.task('js', ['clean'], function () {
     gulp.src('js/config.js')
         .pipe(requireJsOptimize({
             mainConfigFile: 'js/config.js',
@@ -46,15 +46,18 @@ gulp.task('js', function () {
     gulp.src('lib/require.js')
         .pipe(uglify())
         .pipe(gulp.dest(DIST_PATH + '/js'));
+    gulp.src('locale/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest(DIST_PATH + '/locale'));
 });
 
-gulp.task('css', function () {
+gulp.task('css', ['clean'], function () {
     gulp.src('css/*.css')
         .pipe(minifyCss())
         .pipe(gulp.dest(DIST_PATH + '/css'));
 });
 
-gulp.task('html', function () {
+gulp.task('html', ['clean'], function () {
     gulp.src('index-src.html')
         .pipe(procseeHtml())
         .pipe(minifyHtml())
@@ -62,4 +65,4 @@ gulp.task('html', function () {
         .pipe(gulp.dest('.'));
 });
 
-gulp.task('default', ['clean', 'images', 'js', 'css', 'html']);
+gulp.task('default', ['images', 'js', 'css', 'html']);

@@ -1,6 +1,6 @@
 /**
  * @file 主要游戏场景
- * @author liangweibin@baidu.com
+ * @author BenzLeung(https://github.com/BenzLeung)
  * @date 2017/2/3
  * @class MainScene
  * Created by JetBrains PhpStorm.
