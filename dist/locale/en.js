@@ -1,1 +1,1 @@
-define({defaultFont:"Arial",dictionary:{}});
+define({author:{name:"",site:""},defaultFont:"Arial",dictionary:{}});
