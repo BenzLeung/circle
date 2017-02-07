@@ -1,8 +1,8 @@
 /**
- * @file 主要游戏场景
+ * @file 游戏标题
  * @author BenzLeung(https://github.com/BenzLeung)
- * @date 2017/2/3
- * @class MainScene
+ * @date 2017/2/7
+ * @class TitleScene
  * Created by JetBrains PhpStorm.
  *
  * 每位工程师都有保持代码优雅的义务
@@ -12,9 +12,9 @@
 define(
     [
         'cocos',
-        'layers/gameLayer'
+        'layers/titleLayer'
     ],
-    function (cc, GameLayer) {
+    function (cc, TitleLayer) {
         return cc.Scene.extend({
             ctor:function () {
                 this._super();
@@ -22,8 +22,8 @@ define(
                 var bg = new cc.LayerColor(cc.color.BLACK);
                 this.addChild(bg, 1);
 
-                var game = new GameLayer();
-                this.addChild(game, 2);
+                var menu = new TitleLayer();
+                this.addChild(menu, 2);
             }
         });
     }

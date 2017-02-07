@@ -10,6 +10,8 @@
  */
 
 define(['i18n/localeList'], function (localeList) {
+    var localeContent = {};
+
     var curDictionary = {};
 
     var i18n = function (str) {
@@ -26,12 +28,16 @@ define(['i18n/localeList'], function (localeList) {
         return localeList;
     };
 
-    i18n['setLanguage'] = function (localeName) {
+    i18n['setLanguage'] = function (localeName, callback) {
         localeName = localeName.toLowerCase();
         var shortLocaleName = localeName.substr(0, 2);
         var setLocale = function (locale) {
+            localeContent = locale;
             curDictionary = locale['dictionary'];
             i18n['defaultFont'] = locale['defaultFont'];
+            if (typeof callback === 'function') {
+                callback();
+            }
         };
         if (localeList[localeName]) {
             require(['../locale/' + localeName], setLocale);

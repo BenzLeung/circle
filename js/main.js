@@ -8,7 +8,7 @@
  * each engineer has a duty to keep the code elegant
  */
 
-require(['cocos', 'scenes/mainScene'], function (cc, MainScene) {
+require(['cocos', 'scenes/titleScene'], function (cc, TitleScene) {
 
     cc.game.config = {
         "debugMode"     : 1,
@@ -22,7 +22,7 @@ require(['cocos', 'scenes/mainScene'], function (cc, MainScene) {
         cc.view.setOrientation(cc.ORIENTATION_LANDSCAPE);
         cc.view.resizeWithBrowserSize(true);
         cc.LoaderScene.preload(['res/circle-red.png', 'res/circle-blue.png', 'res/me.png'], function () {
-            cc.director.runScene(new MainScene());
+            cc.director.runScene(new TitleScene());
         }, this);
     };
 

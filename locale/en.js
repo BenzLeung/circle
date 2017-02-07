@@ -9,6 +9,10 @@
  */
 
 define({
+    author: {
+        name: '',
+        site: ''
+    },
     defaultFont: 'Arial',
     dictionary: {
 
