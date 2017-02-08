@@ -30,6 +30,11 @@ define(
                 var fullScreenLabel = new cc.LabelTTF(i18n('Full Screen'), i18n.defaultFont, MENU_FONT_SIZE);
                 fullScreenLabel.setColor(MENU_COLOR);
                 this.fullScreenItem = new cc.MenuItemLabel(fullScreenLabel, this.doFullScreen, this);
+                if (cc.screen.fullScreen()) {
+                    this.fullScreenItem.setString(i18n('Exit Full Screen'));
+                } else {
+                    this.fullScreenItem.setString(i18n('Full Screen'));
+                }
 
                 var languageLabel = new cc.LabelTTF(i18n('Language'), i18n.defaultFont, MENU_FONT_SIZE);
                 languageLabel.setColor(MENU_COLOR);

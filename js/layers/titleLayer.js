@@ -48,21 +48,6 @@ define(
                 this.playAnimation();
 
                 var me = this;
-                /*var keyListener = new cc.EventListener({
-                    event: cc.EventListener.KEYBOARD,
-                    onKeyPressed: function (keyCode) {
-                        if (keyCode === cc.KEY.enter) {
-                            me.skipAnimation();
-                        }
-                    }
-                });
-                var mouseListener = new cc.EventListener({
-                    event: cc.EventListener.MOUSE,
-                    onMouseDown: function () {
-                        me.skipAnimation();
-                    }
-                });*/
-
                 cc.eventManager.addListener({
                     event: cc.EventListener.KEYBOARD,
                     onKeyPressed: function (keyCode) {
@@ -109,6 +94,9 @@ define(
             },
 
             skipAnimation:function () {
+                if (this.isAnimationFinished) {
+                    return;
+                }
                 var winSize = cc.director.getWinSize();
 
                 this.titleCircle.cleanup();
@@ -122,7 +110,7 @@ define(
 
                 this.setPosition(0, winSize.height * 0.25);
 
-                this.isAnimationFinished = false;
+                this.isAnimationFinished = true;
                 if (typeof this.finishCallbackFn === 'function') {
                     this.finishCallbackFn.call(this.finishCallbackFnThisArg);
                 }

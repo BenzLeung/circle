@@ -13,9 +13,10 @@ define(
     [
         'cocos',
         'layers/titleLayer',
-        'layers/startMenu'
+        'layers/startMenu',
+        'layers/demoLayer'
     ],
-    function (cc, TitleLayer, StartMenu) {
+    function (cc, TitleLayer, StartMenu, DemoLayer) {
         return cc.Scene.extend({
             ctor:function () {
                 this._super();
@@ -26,16 +27,19 @@ define(
                 this.addChild(bg, 1);
 
                 var title = new TitleLayer();
-                this.addChild(title, 1);
+                this.addChild(title, 3);
 
                 title.finishCallback(function () {
                     var menu = new StartMenu();
-                    this.addChild(menu, 2);
+                    this.addChild(menu, 5);
 
                     var benzLeung = new cc.LabelTTF('©Benz Leung (https://github.com/BenzLeung)', 'Tahoma', 30);
                     benzLeung.setColor(new cc.Color(128, 128, 128, 1));
                     benzLeung.setPosition(winSize.width / 2, 60);
-                    this.addChild(benzLeung, 1);
+                    this.addChild(benzLeung, 3);
+
+                    var demoLayer = new DemoLayer();
+                    this.addChild(demoLayer, 2);
                 }, this);
             }
         });
