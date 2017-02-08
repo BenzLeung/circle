@@ -19,6 +19,7 @@ define(['cocos', 'sprites/circles/baseCircle'], function (cc, BaseCircle) {
             this.lostFrame = new cc.SpriteFrame('res/me-lost.png', cc.rect(0, 0, 80, 80));
             this._super(this.normalFrame);
             this.initKeyboard();
+            this.initMouseAndTouch();
         },
         initPosition: function () {
             var winSize = cc.director.getWinSize();
@@ -72,6 +73,48 @@ define(['cocos', 'sprites/circles/baseCircle'], function (cc, BaseCircle) {
                 }
             });
             cc.eventManager.addListener(keyListener, this);
+        },
+        initMouseAndTouch: function () {
+            var me = this;
+            var processEvent = function (event) {
+                var delta = event.getDelta();
+                var curPos = me.getPosition();
+                var winSize = cc.director.getWinSize();
+                var thisSize = me.getContentSize();
+                var radius = thisSize.width / 2;
+                curPos = cc.pAdd(curPos, delta);
+                curPos = cc.pClamp(curPos, cc.p(radius, radius), cc.p(winSize.width - radius, winSize.height - radius));
+                me.setPosition(curPos);
+            };
+            /*var mouseListener = cc.EventListener.create({
+                event: cc.EventListener.MOUSE,
+                onMouseMove: function (event) {
+                    if(event.getButton() == cc.EventMouse.BUTTON_LEFT) {
+                        var delta = event.getDelta();
+                        var curPos = me.getPosition();
+                        var winSize = cc.director.getWinSize();
+                        var thisSize = me.getContentSize();
+                        var radius = thisSize.width / 2;
+                        curPos = cc.pAdd(curPos, delta);
+                        curPos = cc.pClamp(curPos, cc.p(radius, radius), cc.p(winSize.width - radius, winSize.height - radius));
+                        me.setPosition(curPos);
+                    }
+                }
+            });
+            cc.eventManager.addListener(mouseListener, this);*/
+            var touchListener = cc.EventListener.create({
+                prevTouchId: -1,
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesMoved:function (touches, event) {
+                    var touch = touches[0];
+                    if (this.prevTouchId != touch.getID()) {
+                        this.prevTouchId = touch.getID();
+                    } else {
+                        processEvent(touches[0]);
+                    }
+                }
+            });
+            cc.eventManager.addListener(touchListener, this);
         }
     });
 });

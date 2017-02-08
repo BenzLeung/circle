@@ -57,6 +57,15 @@ define(
                     }
                 });
                 cc.eventManager.addListener(keyListener, this);
+                var touchListener = cc.EventListener.create({
+                    event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                    onTouchesBegan:function () {
+                        if (!me.isInit) {
+                            me.initGame();
+                        }
+                    }
+                });
+                cc.eventManager.addListener(touchListener, this);
 
                 var winSize = cc.director.getWinSize();
 
