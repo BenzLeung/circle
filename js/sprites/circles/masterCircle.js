@@ -85,6 +85,8 @@ define(['cocos', 'sprites/circles/baseCircle'], function (cc, BaseCircle) {
                 curPos = cc.pAdd(curPos, delta);
                 curPos = cc.pClamp(curPos, cc.p(radius, radius), cc.p(winSize.width - radius, winSize.height - radius));
                 me.setPosition(curPos);
+                me.SPEED = 0;
+                me.SPEED = 0;
             };
             /*var mouseListener = cc.EventListener.create({
                 event: cc.EventListener.MOUSE,
