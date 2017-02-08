@@ -17,24 +17,17 @@ define(
     ],
     function (cc, RedCircle, BlueCircle) {
         return cc.Layer.extend({
-            redCircle  : [],
-            enemyCircle: [],
-
             ctor     :function () {
                 this._super();
 
                 var i;
                 var tmp;
-                this.redCircle = [];
-                this.enemyCircle = [];
                 for (i = 0; i < 8; i ++) {
                     tmp = new RedCircle();
-                    this.redCircle.push(tmp);
                     this.addChild(tmp, 2);
                 }
                 for (i = 0; i < 15; i ++) {
                     tmp = new BlueCircle();
-                    this.enemyCircle.push(tmp);
                     this.addChild(tmp, 3);
                 }
                 return true;
