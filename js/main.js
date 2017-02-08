@@ -21,7 +21,7 @@ require(['cocos', 'scenes/titleScene'], function (cc, TitleScene) {
         cc.view.setDesignResolutionSize(1920, 1080, cc.ResolutionPolicy.SHOW_ALL);
         cc.view.setOrientation(cc.ORIENTATION_LANDSCAPE);
         cc.view.resizeWithBrowserSize(true);
-        cc.LoaderScene.preload(['res/circle-red.png', 'res/circle-blue.png', 'res/me.png'], function () {
+        cc.LoaderScene.preload(['res/title-circle.png', 'res/title-war.png', 'res/circle-red.png', 'res/circle-blue.png', 'res/me.png'], function () {
             cc.director.runScene(new TitleScene());
         }, this);
     };

@@ -16,11 +16,15 @@
         'Your score: ': '最后得分：',
         '- Press ENTER to replay -': '- 按Enter重新开始 -',
         'Start Game': '开始游戏',
+        'Full Screen': '全屏',
+        'Exit Full Screen': '退出全屏',
         'Language': '语言(Language)',
         'About': '关于',
         'Visit my Github' : '访问我的Github',
         'Visit the project\'s site' : '访问项目主页',
-        '<< Go back' : '<< 返回'
+        '<< Go back' : '<< 返回',
+        'Play again' : '再玩一次',
+        'Back to Main menu' : '返回主菜单'
     };
 
     dict['This is a small small small game that invented by myself. I made it for learning cocos2d-js.\n\n' +

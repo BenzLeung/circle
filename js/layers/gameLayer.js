@@ -32,7 +32,6 @@ define(
             gameOverLabel: null,
             finalScoreLabel: null,
             guideLabel : null,
-            readyLabel : null,
 
             ctor     :function () {
                 this._super();
@@ -41,52 +40,52 @@ define(
                 var keyListener = cc.EventListener.create({
                     event: cc.EventListener.KEYBOARD,
                     onKeyPressed: function (keyCode) {
+                        if (!me.isInit) {
+                            me.initGame();
+                            return;
+                        }
                         if (keyCode === cc.KEY.enter) {
-                            if (!me.isInit) {
-                                me.initGame();
-                                return;
-                            }
                             if (me.isOver) {
                                 me.resetGame();
-                                me.gameOverLabel.runAction(cc.hide());
-                                me.finalScoreLabel.runAction(cc.hide());
-                                me.guideLabel.runAction(cc.hide());
-                                me.readyLabel.runAction(cc.hide());
                             }
                             if (me.isPaused) {
                                 me.resumeGame();
-                                me.pauseLabel.runAction(cc.hide());
                             } else {
                                 me.pauseGame();
-                                me.pauseLabel.runAction(cc.show());
                             }
                         }
                     }
                 });
                 cc.eventManager.addListener(keyListener, this);
 
-                var size = cc.director.getWinSize();
+                var winSize = cc.director.getWinSize();
 
                 this.scoreLabel = new cc.LabelTTF(i18n('Score: ') + '0', i18n.defaultFont, 40);
                 var scoreColor = new cc.Color(0, 255, 0);
-                this.scoreLabel.setPosition(size.width / 2, size.height -100);
+                this.scoreLabel.setPosition(winSize.width / 2, winSize.height -100);
                 this.scoreLabel.setColor(scoreColor);
                 this.addChild(this.scoreLabel, 1);
 
                 this.myCircle = new MasterCircle();
                 this.addChild(this.myCircle, 5);
                 this.guideLabel = new cc.LabelTTF(i18n('Using arrow keys in keyboard to control the main circle, let it collect the red circles and don\'t touch the other circles.'), i18n.defaultFont, 30);
-                this.guideLabel.setPosition(size.width / 2, size.height / 2 - 100);
+                this.guideLabel.setPosition(winSize.width / 2, winSize.height / 2 - 100);
                 this.guideLabel.setColor(new cc.Color(255, 255, 255));
                 this.guideLabel.enableStroke(new cc.Color(10, 10, 10), 2);
                 this.addChild(this.guideLabel, 100);
-                this.readyLabel = new cc.LabelTTF(i18n('- Press ENTER to play -'), i18n.defaultFont, 30);
-                this.readyLabel.setPosition(size.width / 2, size.height / 2 - 140);
-                this.readyLabel.setColor(new cc.Color(128, 255, 128));
-                this.readyLabel.enableStroke(new cc.Color(10, 10, 10), 2);
-                this.addChild(this.readyLabel, 100);
-                /*var flashAction = cc.RepeatForever(cc.Sequence([cc.Show(), cc.delayTime(0.5), cc.Hide(), cc.delayTime(0.5)]));
-                this.readyLabel.runAction(flashAction);*/
+                var replayLabel = new cc.LabelTTF(i18n('Play again'), i18n.defaultFont, 40);
+                replayLabel.setColor(new cc.Color(0, 255, 0));
+                replayLabel.enableStroke(new cc.Color(10, 10, 10), 2);
+                var replayItem = new cc.MenuItemLabel(replayLabel, this.resetGame, this);
+                var exitLabel = new cc.LabelTTF(i18n('Back to Main menu'), i18n.defaultFont, 40);
+                exitLabel.setColor(new cc.Color(0, 255, 0));
+                exitLabel.enableStroke(new cc.Color(10, 10, 10), 2);
+                var exitItem = new  cc.MenuItemLabel(exitLabel, this.exitGame, this);
+                this.replayMenu = new cc.Menu(replayItem, exitItem);
+                this.replayMenu.setPosition(winSize.width / 2, winSize.height * 0.375);
+                this.replayMenu.alignItemsVerticallyWithPadding(15);
+                this.addChild(this.replayMenu, 100);
+                this.replayMenu.runAction(cc.hide());
 
                 return true;
             },
@@ -96,6 +95,8 @@ define(
 
                 var i;
                 var tmp;
+                this.redCircle = [];
+                this.enemyCircle = [];
                 for (i = 0; i < 8; i ++) {
                     tmp = new RedCircle();
                     this.redCircle.push(tmp);
@@ -107,7 +108,6 @@ define(
                     this.addChild(tmp, 3);
                 }
 
-
                 this.scheduleUpdate();
 
                 this.pauseLabel = new cc.LabelTTF('- PAUSE -', 'Arial Black', 100);
@@ -116,7 +116,7 @@ define(
                 this.pauseLabel.enableStroke(new cc.Color(10, 10, 10), 3);
                 this.addChild(this.pauseLabel, 100);
                 this.pauseLabel.runAction(cc.hide());
-                this.gameOverLabel = new cc.LabelTTF('Game Over', 'Arial Black', 60);
+                this.gameOverLabel = new cc.LabelTTF('Game Over', 'Arial Black', 100);
                 this.gameOverLabel.setPosition(size.width / 2, size.height / 2 + 40);
                 this.gameOverLabel.setColor(new cc.Color(128, 255, 128));
                 this.gameOverLabel.enableStroke(new cc.Color(10, 10, 10), 3);
@@ -129,7 +129,7 @@ define(
                 this.addChild(this.finalScoreLabel, 100);
                 this.finalScoreLabel.runAction(cc.hide());
                 this.guideLabel.runAction(cc.hide());
-                this.readyLabel.runAction(cc.hide());
+                this.replayMenu.runAction(cc.hide());
 
                 this.isInit = true;
             },
@@ -153,7 +153,13 @@ define(
 
                 this.score = 0;
                 this.scoreLabel.setString(i18n('Score: ') + 0);
+
+                this.gameOverLabel.runAction(cc.hide());
+                this.finalScoreLabel.runAction(cc.hide());
+                this.guideLabel.runAction(cc.hide());
+                this.replayMenu.runAction(cc.hide());
                 this.isOver = false;
+                this.resumeGame();
             },
             pauseGame:function () {
                 var i, len;
@@ -164,6 +170,7 @@ define(
                 for (i = 0, len = this.redCircle.length; i < len; i ++) {
                     this.redCircle[i].pause();
                 }
+                this.pauseLabel.runAction(cc.show());
                 this.isPaused = true;
             },
             resumeGame:function () {
@@ -175,18 +182,30 @@ define(
                 for (i = 0, len = this.redCircle.length; i < len; i ++) {
                     this.redCircle[i].resume();
                 }
+                this.pauseLabel.runAction(cc.hide());
                 this.isPaused = false;
             },
             gameOver:function () {
                 this.finalScoreLabel.setString(i18n('Your score: ') + this.score);
-                this.readyLabel.setString(i18n('- Press ENTER to replay -'));
                 this.gameOverLabel.runAction(cc.show());
                 this.finalScoreLabel.runAction(cc.show());
-                this.readyLabel.runAction(cc.show());
+                this.replayMenu.runAction(cc.show());
                 this.myCircle.setDisplayFrame(this.myCircle.lostFrame);
 
-                this.pauseGame();
+                var i, len;
+                this.myCircle.pause();
+                for (i = 0, len = this.enemyCircle.length; i < len; i ++) {
+                    this.enemyCircle[i].pause();
+                }
+                for (i = 0, len = this.redCircle.length; i < len; i ++) {
+                    this.redCircle[i].pause();
+                }
                 this.isOver = true;
+            },
+            exitGame:function () {
+                require(['scenes/titleScene'], function (TitleScene) {
+                    cc.director.runScene(new cc.TransitionFade(0.1, new TitleScene()));
+                });
             },
             checkCirclesHit:function (objCircle1, objCircle2) {
                 var circle1 = {
@@ -203,24 +222,27 @@ define(
             update:function () {
                 var i, len;
                 var tmp;
-                for (i = 0, len = this.redCircle.length; i < len; i ++) {
-                    if (this.checkCirclesHit(this.myCircle, this.redCircle[i])) {
-                        this.redCircle[i].initPosition();
-                        this.score ++;
-                        this.scoreLabel.setString(i18n('Score: ') + this.score);
+                if (this.isInit && !this.isOver && !this.isPaused) {
+                    for (i = 0, len = this.redCircle.length; i < len; i ++) {
+                        if (this.checkCirclesHit(this.myCircle, this.redCircle[i])) {
+                            this.redCircle[i].initPosition();
+                            this.score ++;
+                            this.scoreLabel.setString(i18n('Score: ') + this.score);
 
-                        if (this.score % 2 === 0) {
-                            tmp = new BlueCircle();
-                            this.enemyCircle.push(tmp);
-                            this.addChild(tmp, 3);
+                            if (this.score % 2 === 0) {
+                                tmp = new BlueCircle();
+                                this.enemyCircle.push(tmp);
+                                this.addChild(tmp, 3);
+                            }
+                        }
+                    }
+                    for (i = 0, len = this.enemyCircle.length; i < len; i ++) {
+                        if (this.checkCirclesHit(this.myCircle, this.enemyCircle[i])) {
+                            this.gameOver();
                         }
                     }
                 }
-                for (i = 0, len = this.enemyCircle.length; i < len; i ++) {
-                    if (this.checkCirclesHit(this.myCircle, this.enemyCircle[i])) {
-                        this.gameOver();
-                    }
-                }
+
             }
         });
     }

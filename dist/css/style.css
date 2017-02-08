@@ -1,1 +1,1 @@
-body,html{background:#003;margin:0;padding:0}#gameCanvas{border:3px solid #ccc}
+body,html{background:#003;margin:0;padding:0;overflow:hidden}#gameCanvas{border:3px solid #ccc}

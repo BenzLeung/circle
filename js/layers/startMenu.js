@@ -27,6 +27,10 @@ define(
                 startGameLabel.setColor(MENU_COLOR);
                 var startGameMenuItem = new cc.MenuItemLabel(startGameLabel, this.doStartGame, this);
 
+                var fullScreenLabel = new cc.LabelTTF(i18n('Full Screen'), i18n.defaultFont, MENU_FONT_SIZE);
+                fullScreenLabel.setColor(MENU_COLOR);
+                this.fullScreenItem = new cc.MenuItemLabel(fullScreenLabel, this.doFullScreen, this);
+
                 var languageLabel = new cc.LabelTTF(i18n('Language'), i18n.defaultFont, MENU_FONT_SIZE);
                 languageLabel.setColor(MENU_COLOR);
                 var languageMenuItem = new cc.MenuItemLabel(languageLabel, this.doLanguage, this);
@@ -35,7 +39,7 @@ define(
                 aboutLabel.setColor(MENU_COLOR);
                 var aboutMenuItem = new cc.MenuItemLabel(aboutLabel, this.doAbout, this);
 
-                this._super(startGameMenuItem, languageMenuItem, aboutMenuItem);
+                this._super(startGameMenuItem, this.fullScreenItem, languageMenuItem, aboutMenuItem);
                 var winSize = cc.director.getWinSize();
                 this.setContentSize(winSize.width / 2, winSize.height * 0.375);
                 this.setPosition(winSize.width / 2, winSize.height * 0.3125);
@@ -46,6 +50,21 @@ define(
                 cc.LoaderScene.preload(['res/circle-red.png', 'res/circle-blue.png', 'res/me.png'], function () {
                     cc.director.runScene(new MainScene());
                 }, this);
+            },
+
+            doFullScreen : function () {
+                var me = this;
+                if (!cc.screen.fullScreen()) {
+                    cc.screen.requestFullScreen(undefined, function () {
+                        if (cc.screen.fullScreen()) {
+                            me.fullScreenItem.setString(i18n('Exit Full Screen'));
+                        } else {
+                            me.fullScreenItem.setString(i18n('Full Screen'));
+                        }
+                    });
+                } else {
+                    cc.screen.exitFullScreen();
+                }
             },
 
             doLanguage : function () {

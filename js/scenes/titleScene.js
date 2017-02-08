@@ -12,18 +12,31 @@
 define(
     [
         'cocos',
-        'layers/titleLayer'
+        'layers/titleLayer',
+        'layers/startMenu'
     ],
-    function (cc, TitleLayer) {
+    function (cc, TitleLayer, StartMenu) {
         return cc.Scene.extend({
             ctor:function () {
                 this._super();
 
+                var winSize = cc.director.getWinSize();
+
                 var bg = new cc.LayerColor(cc.color.BLACK);
                 this.addChild(bg, 1);
 
-                var menu = new TitleLayer();
-                this.addChild(menu, 2);
+                var title = new TitleLayer();
+                this.addChild(title, 1);
+
+                title.finishCallback(function () {
+                    var menu = new StartMenu();
+                    this.addChild(menu, 2);
+
+                    var benzLeung = new cc.LabelTTF('©Benz Leung (https://github.com/BenzLeung)', 'Tahoma', 30);
+                    benzLeung.setColor(new cc.Color(128, 128, 128, 1));
+                    benzLeung.setPosition(winSize.width / 2, 60);
+                    this.addChild(benzLeung, 1);
+                }, this);
             }
         });
     }
