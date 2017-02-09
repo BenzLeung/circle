@@ -28,7 +28,7 @@ define(
                     'There are many circles in this game. ' +
                     'Using arrow keys on keyboard or drag on touch screen to control the main circle, ' +
                     'let it collect the red circles and don\'t touch the other circles.'),
-                    i18n.defaultFont, 50, cc.size(cc.visibleRect.width - 100, 0), cc.TEXT_ALIGNMENT_CENTER);
+                    i18n.defaultFont, 40, cc.size(cc.visibleRect.width - 100, 0), cc.TEXT_ALIGNMENT_CENTER);
                 about.setPosition(winSize.width / 2, winSize.height * 0.6875);
                 //about.setContentSize(winSize.width / 2, winSize.height * 0.375);
                 about.setColor(new cc.Color(192, 192, 192, 1));
