@@ -22,6 +22,8 @@ define(
                 this._super();
 
                 var winSize = cc.director.getWinSize();
+                //var fixX = cc.visibleRect.bottomLeft.x;
+                var fixY = cc.visibleRect.bottomLeft.y;
 
                 var bg = new cc.LayerColor(cc.color.BLACK);
                 this.addChild(bg, 1);
@@ -35,7 +37,7 @@ define(
 
                     var benzLeung = new cc.LabelTTF('©Benz Leung (https://github.com/BenzLeung)', 'Tahoma', 30);
                     benzLeung.setColor(new cc.Color(128, 128, 128, 1));
-                    benzLeung.setPosition(winSize.width / 2, 60);
+                    benzLeung.setPosition(winSize.width / 2, fixY + 60);
                     this.addChild(benzLeung, 3);
 
                     var demoLayer = new DemoLayer();

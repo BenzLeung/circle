@@ -71,27 +71,31 @@ define(
 
                 this.scoreLabel = new cc.LabelTTF(i18n('Score: ') + '0', i18n.defaultFont, 40);
                 var scoreColor = new cc.Color(0, 255, 0);
-                this.scoreLabel.setPosition(winSize.width / 2, winSize.height -100);
+                this.scoreLabel.setPosition(winSize.width / 2, winSize.height - cc.visibleRect.bottom.y - 100);
                 this.scoreLabel.setColor(scoreColor);
                 this.addChild(this.scoreLabel, 1);
 
                 this.myCircle = new MasterCircle();
                 this.addChild(this.myCircle, 5);
-                this.guideLabel = new cc.LabelTTF(i18n('Using arrow keys in keyboard to control the main circle, let it collect the red circles and don\'t touch the other circles.'), i18n.defaultFont, 30);
+                this.guideLabel = new cc.LabelTTF(i18n(
+                    'Using arrow keys in keyboard to control the main circle, ' +
+                    'let it collect the red circles ' +
+                    'and don\'t touch the other circles.'),
+                    i18n.defaultFont, 30, cc.size(cc.visibleRect.width - 60, 0), cc.TEXT_ALIGNMENT_CENTER);
                 this.guideLabel.setPosition(winSize.width / 2, winSize.height / 2 - 100);
                 this.guideLabel.setColor(new cc.Color(255, 255, 255));
                 this.guideLabel.enableStroke(new cc.Color(10, 10, 10), 2);
                 this.addChild(this.guideLabel, 100);
-                var replayLabel = new cc.LabelTTF(i18n('Play again'), i18n.defaultFont, 40);
+                var replayLabel = new cc.LabelTTF(i18n('Play again'), i18n.defaultFont, 50);
                 replayLabel.setColor(new cc.Color(0, 255, 0));
                 replayLabel.enableStroke(new cc.Color(10, 10, 10), 2);
                 var replayItem = new cc.MenuItemLabel(replayLabel, this.resetGame, this);
-                var exitLabel = new cc.LabelTTF(i18n('Back to Main menu'), i18n.defaultFont, 40);
+                var exitLabel = new cc.LabelTTF(i18n('Back to Main menu'), i18n.defaultFont, 50);
                 exitLabel.setColor(new cc.Color(0, 255, 0));
                 exitLabel.enableStroke(new cc.Color(10, 10, 10), 2);
                 var exitItem = new  cc.MenuItemLabel(exitLabel, this.exitGame, this);
                 this.replayMenu = new cc.Menu(replayItem, exitItem);
-                this.replayMenu.setPosition(winSize.width / 2, winSize.height * 0.375);
+                this.replayMenu.setPosition(winSize.width / 2, cc.visibleRect.height * 0.375 + cc.visibleRect.bottom.y);
                 this.replayMenu.alignItemsVerticallyWithPadding(15);
                 this.addChild(this.replayMenu, 100);
                 this.replayMenu.runAction(cc.hide());
@@ -100,7 +104,7 @@ define(
             },
             initGame: function () {
 
-                var size = cc.director.getWinSize();
+                var winSize = cc.director.getWinSize();
 
                 var i;
                 var tmp;
@@ -120,19 +124,19 @@ define(
                 this.scheduleUpdate();
 
                 this.pauseLabel = new cc.LabelTTF('- PAUSE -', 'Arial Black', 100);
-                this.pauseLabel.setPosition(size.width / 2, size.height / 2);
+                this.pauseLabel.setPosition(winSize.width / 2, winSize.height / 2);
                 this.pauseLabel.setColor(new cc.Color(128, 255, 128));
                 this.pauseLabel.enableStroke(new cc.Color(10, 10, 10), 3);
                 this.addChild(this.pauseLabel, 100);
                 this.pauseLabel.runAction(cc.hide());
                 this.gameOverLabel = new cc.LabelTTF('Game Over', 'Arial Black', 100);
-                this.gameOverLabel.setPosition(size.width / 2, size.height / 2 + 40);
+                this.gameOverLabel.setPosition(winSize.width / 2, winSize.height / 2 + 100);
                 this.gameOverLabel.setColor(new cc.Color(128, 255, 128));
                 this.gameOverLabel.enableStroke(new cc.Color(10, 10, 10), 3);
                 this.addChild(this.gameOverLabel, 100);
                 this.gameOverLabel.runAction(cc.hide());
-                this.finalScoreLabel = new cc.LabelTTF(i18n('Your score: ') + '0', i18n.defaultFont, 30);
-                this.finalScoreLabel.setPosition(size.width / 2, size.height / 2 - 30);
+                this.finalScoreLabel = new cc.LabelTTF(i18n('Your score: ') + '0', i18n.defaultFont, 50);
+                this.finalScoreLabel.setPosition(winSize.width / 2, winSize.height / 2);
                 this.finalScoreLabel.setColor(new cc.Color(255, 255, 255));
                 this.finalScoreLabel.enableStroke(new cc.Color(10, 10, 10), 2);
                 this.addChild(this.finalScoreLabel, 100);
@@ -219,11 +223,11 @@ define(
             checkCirclesHit:function (objCircle1, objCircle2) {
                 var circle1 = {
                     p: objCircle1.getPosition(),
-                    r: objCircle1.getContentSize().width / 2
+                    r: objCircle1.getBoundingBox().width / 2
                 };
                 var circle2 = {
                     p: objCircle2.getPosition(),
-                    r: objCircle2.getContentSize().width / 2
+                    r: objCircle2.getBoundingBox().width / 2
                 };
                 var d = cc.pDistance(circle1.p, circle2.p);
                 return (d < circle1.r + circle2.r);

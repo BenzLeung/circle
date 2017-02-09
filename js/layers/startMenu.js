@@ -21,19 +21,21 @@ define(
         return cc.Menu.extend({
             ctor : function () {
                 var MENU_FONT_SIZE = 50;
-                var MENU_COLOR = new cc.Color(0, 128, 0, 1);
+                var MENU_COLOR = new cc.Color(0, 255, 0);
 
                 var startGameLabel = new cc.LabelTTF(i18n('Start Game'), i18n.defaultFont, MENU_FONT_SIZE);
                 startGameLabel.setColor(MENU_COLOR);
                 var startGameMenuItem = new cc.MenuItemLabel(startGameLabel, this.doStartGame, this);
 
-                var fullScreenLabel = new cc.LabelTTF(i18n('Full Screen'), i18n.defaultFont, MENU_FONT_SIZE);
-                fullScreenLabel.setColor(MENU_COLOR);
-                this.fullScreenItem = new cc.MenuItemLabel(fullScreenLabel, this.doFullScreen, this);
-                if (cc.screen.fullScreen()) {
-                    this.fullScreenItem.setString(i18n('Exit Full Screen'));
-                } else {
-                    this.fullScreenItem.setString(i18n('Full Screen'));
+                if (!cc.sys.isMobile) {
+                    var fullScreenLabel = new cc.LabelTTF(i18n('Full Screen'), i18n.defaultFont, MENU_FONT_SIZE);
+                    fullScreenLabel.setColor(MENU_COLOR);
+                    this.fullScreenItem = new cc.MenuItemLabel(fullScreenLabel, this.doFullScreen, this);
+                    if (cc.screen.fullScreen()) {
+                        this.fullScreenItem.setString(i18n('Exit Full Screen'));
+                    } else {
+                        this.fullScreenItem.setString(i18n('Full Screen'));
+                    }
                 }
 
                 var languageLabel = new cc.LabelTTF(i18n('Language'), i18n.defaultFont, MENU_FONT_SIZE);
@@ -44,10 +46,15 @@ define(
                 aboutLabel.setColor(MENU_COLOR);
                 var aboutMenuItem = new cc.MenuItemLabel(aboutLabel, this.doAbout, this);
 
-                this._super(startGameMenuItem, this.fullScreenItem, languageMenuItem, aboutMenuItem);
+                if (cc.sys.isMobile) {
+                    this._super(startGameMenuItem, languageMenuItem, aboutMenuItem);
+                } else {
+                    this._super(startGameMenuItem, this.fullScreenItem, languageMenuItem, aboutMenuItem);
+                }
+
                 var winSize = cc.director.getWinSize();
                 this.setContentSize(winSize.width / 2, winSize.height * 0.375);
-                this.setPosition(winSize.width / 2, winSize.height * 0.3125);
+                this.setPosition(winSize.width / 2, cc.visibleRect.height * 0.3125 + cc.visibleRect.bottom.y);
                 this.alignItemsVerticallyWithPadding(15);
             },
 

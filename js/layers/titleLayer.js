@@ -21,12 +21,13 @@ define(
         var WAR_X = 292;
         var WAR_Y = 0;
 
-        /* // 竖版的位置
-         CIRCLE_X = 0;
-         CIRCLE_Y = -141;
-         WAR_X = 89;
-         WAR_Y = 139;
-         */
+        if (cc.sys.isMobile) {
+            // 竖版的位置
+            CIRCLE_X = 0;
+            CIRCLE_Y = 70;
+            WAR_X = 89;
+            WAR_Y = -70;
+        }
 
         return cc.Layer.extend({
             ctor:function () {
@@ -82,7 +83,7 @@ define(
                 ]));
                 this.runAction(cc.sequence([
                     cc.delayTime(1),
-                    cc.moveTo(0.4, 0, winSize.height * 0.25),
+                    cc.moveTo(0.4, 0, cc.visibleRect.height * 0.25),
                     cc.delayTime(0.3),
                     cc.callFunc(function () {
                         this.isAnimationFinished = true;

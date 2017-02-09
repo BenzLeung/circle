@@ -28,7 +28,7 @@ define(
                     'There are many circles in this game. ' +
                     'Using arrow keys in keyboard to control the main circle, ' +
                     'let it collect the red circles and don\'t touch the other circles.'),
-                    i18n.defaultFont, 40, cc.size(winSize.width / 2, 0), cc.TEXT_ALIGNMENT_LEFT);
+                    i18n.defaultFont, 40, cc.size(cc.visibleRect.width - 100, 0), cc.TEXT_ALIGNMENT_CENTER);
                 about.setPosition(winSize.width / 2, winSize.height * 0.6875);
                 //about.setContentSize(winSize.width / 2, winSize.height * 0.375);
                 about.setColor(new cc.Color(192, 192, 192, 1));
@@ -36,7 +36,7 @@ define(
 
 
                 var MENU_FONT_SIZE = 50;
-                var MENU_COLOR = new cc.Color(0, 128, 0, 1);
+                var MENU_COLOR = new cc.Color(0, 255, 0);
 
                 var benzLeung = new cc.LabelTTF(i18n('Visit my Github'), i18n.defaultFont, MENU_FONT_SIZE);
                 benzLeung.setColor(MENU_COLOR);
