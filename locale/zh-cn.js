@@ -25,7 +25,8 @@
         'Visit the project\'s site' : '访问项目主页',
         '<< Go back' : '<< 返回',
         'Play again' : '再玩一次',
-        'Back to Main menu' : '返回主菜单'
+        'Back to Main menu' : '返回主菜单',
+        'I got %d points in Circle War!' : '我在圆圈大战获得了%d分！'
     };
 
     dict['This is a small small small game that invented by myself. I made it for learning cocos2d-js.\n\n' +

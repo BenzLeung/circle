@@ -223,6 +223,9 @@ define(
                 for (i = 0, len = this.redCircle.length; i < len; i ++) {
                     this.redCircle[i].pause();
                 }
+
+                document.title = i18n('I got %d points in Circle War!').replace('%d', this.score + '');
+
                 this.isOver = true;
             },
             exitGame:function () {

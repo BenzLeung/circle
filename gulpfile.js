@@ -18,7 +18,7 @@ var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 var minifyHtml = require('gulp-minify-html');
 var rename = require('gulp-rename');
-var procseeHtml = require('gulp-processhtml');
+var processHtml = require('gulp-processhtml');
 
 var DIST_PATH = 'dist';
 
@@ -60,7 +60,7 @@ gulp.task('css', ['clean'], function () {
 
 gulp.task('html', ['clean'], function () {
     gulp.src('index-src.html')
-        .pipe(procseeHtml())
+        .pipe(processHtml())
         .pipe(minifyHtml())
         .pipe(rename('index.html'))
         .pipe(gulp.dest('.'));
