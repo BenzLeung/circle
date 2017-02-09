@@ -77,11 +77,21 @@ define(
 
                 this.myCircle = new MasterCircle();
                 this.addChild(this.myCircle, 5);
-                this.guideLabel = new cc.LabelTTF(i18n(
-                    'Using arrow keys in keyboard to control the main circle, ' +
-                    'let it collect the red circles ' +
-                    'and don\'t touch the other circles.'),
-                    i18n.defaultFont, 30, cc.size(cc.visibleRect.width - 60, 0), cc.TEXT_ALIGNMENT_CENTER);
+                if (cc.sys.isMobile && cc.sys.capabilities['touches']) {
+                    this.guideLabel = new cc.LabelTTF(i18n(
+                            'Drag on touch screen to control the main circle, ' +
+                            'let it collect the red circles ' +
+                            'and don\'t touch the other circles.'),
+                        i18n.defaultFont, 40, cc.size(cc.visibleRect.width - 60, 0), cc.TEXT_ALIGNMENT_CENTER);
+                } else {
+                    this.guideLabel = new cc.LabelTTF(i18n(
+                            'Using arrow keys in keyboard to control the main circle, ' +
+                            'let it collect the red circles ' +
+                            'and don\'t touch the other circles.'),
+                        i18n.defaultFont, 40, cc.size(winSize.width / 2, 0), cc.TEXT_ALIGNMENT_CENTER);
+                }
+
+
                 this.guideLabel.setPosition(winSize.width / 2, winSize.height / 2 - 100);
                 this.guideLabel.setColor(new cc.Color(255, 255, 255));
                 this.guideLabel.enableStroke(new cc.Color(10, 10, 10), 2);

@@ -18,8 +18,12 @@ define(['cocos', 'sprites/circles/baseCircle'], function (cc, BaseCircle) {
             this.normalFrame = new cc.SpriteFrame('res/me.png', cc.rect(0, 0, 80, 80));
             this.lostFrame = new cc.SpriteFrame('res/me-lost.png', cc.rect(0, 0, 80, 80));
             this._super(this.normalFrame);
-            this.initKeyboard();
-            this.initMouseAndTouch();
+            if (cc.sys.isMobile && cc.sys.capabilities['touches']) {
+                this.initTouch();
+            }
+            if (cc.sys.capabilities['keyboard']) {
+                this.initKeyboard();
+            }
         },
         initPosition: function () {
             var winSize = cc.director.getWinSize();
@@ -74,7 +78,7 @@ define(['cocos', 'sprites/circles/baseCircle'], function (cc, BaseCircle) {
             });
             cc.eventManager.addListener(keyListener, this);
         },
-        initMouseAndTouch: function () {
+        initTouch: function () {
             var me = this;
             var processEvent = function (event) {
                 var delta = event.getDelta();
