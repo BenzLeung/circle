@@ -158,7 +158,7 @@ define(
 
                 // 百度统计
                 if (window['_hmt']) {
-                    window['_hmt'].push(['_trackEvent', 'circleWar', 'playStart']);
+                    window['_hmt'].push(['_trackEvent', 'circleWar' + (cc.sys.isMobile ? 'Mobile' : 'Desktop'), 'playStart']);
                 }
             },
             resetGame: function () {
@@ -191,7 +191,7 @@ define(
 
                 // 百度统计
                 if (window['_hmt']) {
-                    window['_hmt'].push(['_trackEvent', 'circleWar', 'playStart']);
+                    window['_hmt'].push(['_trackEvent', 'circleWar' + (cc.sys.isMobile ? 'Mobile' : 'Desktop'), 'playStart']);
                 }
 
             },
@@ -239,7 +239,7 @@ define(
 
                 // 百度统计
                 if (window['_hmt']) {
-                    window['_hmt'].push(['_trackEvent', 'circleWar', 'playFinish', '-', this.score]);
+                    window['_hmt'].push(['_trackEvent', 'circleWar' + (cc.sys.isMobile ? 'Mobile' : 'Desktop'), 'playFinish', '-', this.score]);
                 }
 
                 this.isOver = true;
