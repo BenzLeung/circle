@@ -155,6 +155,11 @@ define(
                 this.replayMenu.runAction(cc.hide());
 
                 this.isInit = true;
+
+                // 百度统计
+                if (window['_hmt']) {
+                    window['_hmt'].push(['_trackEvent', 'circleWar', 'playStart']);
+                }
             },
             resetGame: function () {
                 var i, len;
@@ -183,6 +188,12 @@ define(
                 this.replayMenu.runAction(cc.hide());
                 this.isOver = false;
                 this.resumeGame();
+
+                // 百度统计
+                if (window['_hmt']) {
+                    window['_hmt'].push(['_trackEvent', 'circleWar', 'playStart']);
+                }
+
             },
             pauseGame:function () {
                 var i, len;
@@ -225,6 +236,11 @@ define(
                 }
 
                 document.title = i18n('I got %d points in Circle War!').replace('%d', this.score + '');
+
+                // 百度统计
+                if (window['_hmt']) {
+                    window['_hmt'].push(['_trackEvent', 'circleWar', 'playFinish', '-', this.score]);
+                }
 
                 this.isOver = true;
             },
