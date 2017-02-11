@@ -83,11 +83,8 @@ define(['cocos', 'sprites/circles/baseCircle'], function (cc, BaseCircle) {
             var processEvent = function (event) {
                 var delta = event.getDelta();
                 var curPos = me.getPosition();
-                var winSize = cc.director.getWinSize();
-                var thisSize = me.getContentSize();
-                var radius = thisSize.width / 2;
                 curPos = cc.pAdd(curPos, delta);
-                curPos = cc.pClamp(curPos, cc.p(radius, radius), cc.p(winSize.width - radius, winSize.height - radius));
+                curPos = cc.pClamp(curPos, cc.visibleRect.bottomLeft, cc.visibleRect.topRight);
                 me.setPosition(curPos);
                 me.speedX = 0;
                 me.speedY = 0;
