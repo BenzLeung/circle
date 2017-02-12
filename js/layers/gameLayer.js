@@ -239,7 +239,7 @@ define(
 
                 // 百度统计
                 if (window['_hmt']) {
-                    window['_hmt'].push(['_trackEvent', 'circleWar' + (cc.sys.isMobile ? 'Mobile' : 'Desktop'), 'playFinish', '-', this.score]);
+                    window['_hmt'].push(['_trackEvent', 'circleWar' + (cc.sys.isMobile ? 'Mobile' : 'Desktop'), 'playFinish', this.score + '', this.score]);
                 }
 
                 this.isOver = true;
