@@ -101,7 +101,7 @@ define(
 
                                 // 若控制主角时手指要移出屏幕了，则显示提示
                                 var myPos = me.myCircle.getPosition();
-                                if (touchPos.y <= cc.visibleRect.bottom.y + 10 && myPos.y > cc.visibleRect.bottom.y + 100) {
+                                if (touchPos.y <= cc.visibleRect.bottom.y + 50 && myPos.y > cc.visibleRect.bottom.y + 100) {
                                     var tipsPos = cc.p(touchPos.x, cc.visibleRect.bottom.y + 100);
                                     var tipsSize = me.fingerOutLabel.getContentSize();
                                     if (tipsPos.x + tipsSize.width / 2 > cc.visibleRect.right.x) {
