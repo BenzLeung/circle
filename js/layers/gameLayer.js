@@ -58,10 +58,43 @@ define(
                 });
                 cc.eventManager.addListener(keyListener, this);
                 var touchListener = cc.EventListener.create({
+                    prevTouchId: -1,
                     event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                    moveFrameCount: 0,
+                    tipsHasShown: false,
                     onTouchesBegan:function () {
                         if (!me.isInit) {
                             me.initGame();
+                        }
+                    },
+                    onTouchesMoved:function (touches, event) {
+                        var touch = touches[0];
+                        if (this.prevTouchId != touch.getID()) {
+                            this.prevTouchId = touch.getID();
+                        } else {
+                            var touchPos = touch.getLocation();
+                            // 若移动20帧，手指都在主角之上，则显示提示，提示手指不需要挡住主角
+                            if (!this.tipsHasShown) {
+                                if (this.moveFrameCount >= 20) {
+                                    var myRect = me.myCircle.getBoundingBox();
+                                    // 把判断区域扩大一点以容错
+                                    myRect.x -= 50;
+                                    myRect.y -= 50;
+                                    myRect.width += 50;
+                                    myRect.height += 50;
+                                    if (cc.rectContainsPoint(myRect, touchPos)) {
+                                        me.fingerTipsLabel.setVisible(true);
+                                        me.fingerTipsLabel.runAction(cc.sequence([cc.delayTime(2), cc.fadeOut(3)]));
+                                    }
+                                    this.tipsHasShown = true;
+                                } else {
+                                    this.moveFrameCount ++;
+                                }
+
+                            }
+
+                            // 若控制主角时手指要移出屏幕了，则显示提示
+
                         }
                     }
                 });
@@ -77,6 +110,8 @@ define(
 
                 this.myCircle = new MasterCircle();
                 this.addChild(this.myCircle, 5);
+
+                // guideLabel
                 if (cc.sys.isMobile && cc.sys.capabilities['touches']) {
                     this.guideLabel = new cc.LabelTTF(i18n(
                             'Drag on touch screen to control the main circle, ' +
@@ -90,12 +125,35 @@ define(
                             'and don\'t touch the other circles.'),
                         i18n.defaultFont, 40, cc.size(winSize.width / 2, 0), cc.TEXT_ALIGNMENT_CENTER);
                 }
-
-
                 this.guideLabel.setPosition(winSize.width / 2, winSize.height / 2 - 100);
                 this.guideLabel.setColor(new cc.Color(255, 255, 255));
                 this.guideLabel.enableStroke(new cc.Color(10, 10, 10), 2);
                 this.addChild(this.guideLabel, 100);
+
+                // tips label for finger
+                if (cc.sys.capabilities['touches']) {
+                    this.fingerTipsLabel = new cc.LabelTTF(i18n(
+                        'Tips: Your finger don\'t need to cover the main circle. ' +
+                        'You can control it anywhere.'),
+                        i18n.defaultFont, 40, cc.size(cc.visibleRect.width - 60, 0), cc.TEXT_ALIGNMENT_CENTER);
+                    this.fingerTipsLabel.setPosition(winSize.width / 2, winSize.height - cc.visibleRect.bottom.y - 200);
+                    this.fingerTipsLabel.setColor(new cc.Color(128, 128, 128));
+                    this.fingerTipsLabel.setVisible(false);
+                    this.addChild(this.fingerTipsLabel, 1);
+                }
+
+                // tips label for finger out of screen
+                if (cc.sys.capabilities['touches']) {
+                    this.fingerOutLabel = new cc.LabelTTF(i18n(
+                            'Tips: Your finger don\'t need to cover the main circle. ' +
+                            'You can control it anywhere.'),
+                        i18n.defaultFont, 40, cc.size(cc.visibleRect.width - 60, 0), cc.TEXT_ALIGNMENT_CENTER);
+                    this.fingerOutLabel.setColor(new cc.Color(128, 0, 0));
+                    this.fingerOutLabel.setVisible(false);
+                    this.addChild(this.fingerOutLabel, 1);
+                }
+
+                // menu when game over
                 var replayLabel = new cc.LabelTTF(i18n('Play again'), i18n.defaultFont, 50);
                 replayLabel.setColor(new cc.Color(0, 255, 0));
                 replayLabel.enableStroke(new cc.Color(10, 10, 10), 2);

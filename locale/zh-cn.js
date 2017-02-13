@@ -13,6 +13,7 @@
         'Score: ': '得分：',
         'Using arrow keys in keyboard to control the main circle, let it collect the red circles and don\'t touch the other circles.': '用键盘方向键或者ASDW移动主角，收集红色圈圈，躲开蓝色圈圈。',
         'Drag on touch screen to control the main circle, let it collect the red circles and don\'t touch the other circles.': '用触摸屏拖拽移动主角，收集红色圈圈，躲开蓝色圈圈。',
+        'Tips: Your finger don\'t need to cover the main circle. You can control it anywhere.': '提示：手指不需要遮挡主角，屏幕任意位置都可以控制它。',
         '- Press ENTER to play -': '- 按Enter开始游戏 -',
         'Your score: ': '最后得分：',
         '- Press ENTER to replay -': '- 按Enter重新开始 -',
