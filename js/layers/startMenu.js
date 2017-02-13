@@ -59,7 +59,7 @@ define(
             },
 
             doStartGame : function () {
-                cc.LoaderScene.preload(['res/circle-red.png', 'res/circle-blue.png', 'res/me.png'], function () {
+                cc.LoaderScene.preload(['res/circle-red.png', 'res/circle-blue.png', 'res/me.png', 'res/qrcode.png'], function () {
                     cc.director.runScene(new MainScene());
                 }, this);
             },
